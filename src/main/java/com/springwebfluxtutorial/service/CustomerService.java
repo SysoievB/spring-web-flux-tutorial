@@ -30,12 +30,12 @@ public class CustomerService {
 
     public Mono<Customer> updateCustomer(Long id, Customer customer) {
         return repository.findById(id)
-                .flatMap(oldCustomer -> {
-                    oldCustomer.setName(customer.getName());
-                    oldCustomer.setAge(customer.getAge());
-                    oldCustomer.setJob(customer.getJob());
+                .flatMap(existingCustomer -> {
+                    existingCustomer.setName(customer.getName());
+                    existingCustomer.setAge(customer.getAge());
+                    existingCustomer.setJob(customer.getJob());
 
-                    return Mono.just(oldCustomer);
+                    return repository.save(existingCustomer);
                 });
     }
 }

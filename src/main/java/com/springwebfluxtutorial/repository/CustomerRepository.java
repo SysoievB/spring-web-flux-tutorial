@@ -1,9 +1,9 @@
 package com.springwebfluxtutorial.repository;
 
 import com.springwebfluxtutorial.entities.Customer;
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CustomerRepository extends ReactiveCrudRepository<Customer, Long> {
+public interface CustomerRepository extends R2dbcRepository<Customer, Long> {
 }
