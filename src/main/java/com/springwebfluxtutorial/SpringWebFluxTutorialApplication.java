@@ -13,5 +13,4 @@ public class SpringWebFluxTutorialApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpringWebFluxTutorialApplication.class, args);
     }
-
 }
