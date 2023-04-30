@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
+import reactor.test.publisher.PublisherProbe;
 
 import java.util.Objects;
 
@@ -36,6 +38,23 @@ class CustomerServiceTest {
         // Then
         assertTrue(Objects.requireNonNull(customers.collectList().block()).size() > 0);
         verify(repositoryUnderTest, atLeastOnce()).findAll();
+        StepVerifier.create(customers)
+                .expectNextCount(3)
+                .verifyComplete();
+    }
+
+    @Test
+    void itShouldReturnEmptyFluxWhenGetAllCustomersEmpty() {
+        // Given
+        given(repositoryUnderTest.findAll()).willReturn(Flux.empty());
+
+        // When
+        Flux<Customer> customers = serviceUnderTest.getAllCustomers();
+
+        // Then
+        verify(repositoryUnderTest, atLeastOnce()).findAll();
+        StepVerifier.create(customers)
+                .verifyComplete();
     }
 
     @Test
