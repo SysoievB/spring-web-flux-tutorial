@@ -38,7 +38,6 @@ public class CustomerServicePublisherProbeTest {
 
         //Then
         StepVerifier.create(customers)
-                // .expectNextCount(3)
                 .expectNextMatches(element -> {
                     assertThat(element)
                             .returns(1L, Customer::getId)
